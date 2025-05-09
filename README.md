@@ -1,2 +1,2 @@
 # Projeto-Integrado
-Projetor interdisciplinar
+projeto interdisciplinar
