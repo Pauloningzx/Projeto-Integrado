@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
-        .main {
+    .main {
             display: flex;
             flex: 1;
         }
@@ -70,6 +70,66 @@
             border: none;
             cursor: pointer;
         }
+        .detalhes-local {
+    position: absolute;
+    left: 320px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 1000;
+}
+
+.botao-fav-reputacao i.fas.fa-heart {
+    color: red;
+}
+.detalhes-local .imagem-local {
+    width: 100px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.detalhes-local .acoes {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.detalhes-local .acoes button {
+    background: #076653;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.descricao-local {
+    font-size: 0.9rem;
+    color: #333;
+}
+.fa-star.selecionada {
+    color: gold;
+}
+
+.location {
+    cursor: pointer;
+    position: relative;
+}
+
+.botao-fav-reputacao {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.botao-fav-reputacao i {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #888;
+}
     </style>
 </head>
 
@@ -80,7 +140,7 @@
         <div class="menu-toggle" onclick="toggleSidebar()">
             <img src="../icones/menu.png" width="30px" style="padding-right: 5px;" wialt="menu">
         </div>
-        <ul class="menu">
+       <ul class="menu">
             <a href="./Home.html">
                 <li><img src="../icones/casa.png" alt="Home"><span>Home</span></li>
             </a>
@@ -89,16 +149,16 @@
                 <li><img src="../icones/mais-zoom.png" alt="Mapa"><span>Procurar pontos de depósito</span></li>
             </a>
             <hr>
-            <a href="">
+            <a href="./Cadastrar meu Residuo.html">
                 <li><img src="../icones/mais (1).png" alt="Adicionar meu reciclavel"><span>Adicionar meu
                         reciclavel</span></li>
             </a>
             <hr>
-            <a href="">
+            <a href="./voluntário.html">
                 <li><img src="../icones/pin-de-localizacao.png" alt="Voluntàrio"><span>Voluntàrio</span></li>
             </a>
             <hr>
-            <a href="">
+            <a href="./favoritos.html">
                 <li><img src="../icones/favoritos.png" alt="Ver favoritos"><span>Ver favoritos</span></li>
             </a>
             <hr>
@@ -122,18 +182,31 @@
             <img src="../icones/logo.png" alt="Logo-Via-Verde">
         </header>
         <div class="main">
-            <div class="left-panel">
-                <input type="text" id="searchInput" placeholder="Pesquisar por local">
-                <input type="number" id="areaMinima" placeholder="Metro quadrado mínimo">
-                <div class="tabs">
-                    <button onclick="filtrar('deposito')" class="active">Depósito</button>
-                    <button onclick="filtrar('cooperativa')">Cooperativa</button>
-                    <button onclick="filtrar('todos')">Todos</button>
-                </div>
-                <button class="recenter-button" onclick="recentrarMapa()">Recentrar no mapa</button>
-                <div class="locations" id="listaLocais"></div>
-            </div>
-            <div id="map"></div>
+<div class="main">
+    <div class="left-panel">
+        <input type="text" id="searchInput" placeholder="Pesquisar por local">
+        <input type="number" id="areaMinima" placeholder="Metro quadrado mínimo">
+        <div class="tabs">
+            <button onclick="filtrar('deposito')" class="active">Depósito</button>
+            <button onclick="filtrar('cooperativa')">Cooperativa</button>
+            <button onclick="filtrar('todos')">Todos</button>
+        </div>
+        <button class="recenter-button" onclick="recentrarMapa()">Recentrar no mapa</button>
+        <div class="locations" id="listaLocais"></div>
+    </div>
+    <div id="map"></div>
+</div>
+<div class="detalhes-local" id="detalhesLocal">
+    <img src="../img/31ec2ce212492e600b8de27f38846ed7.jpg" alt="Imagem do local" class="imagem-local">
+    <div class="acoes">
+        <button><i class="fas fa-route"></i> Rotas</button>
+        <button><i class="fas fa-phone"></i> Ligar</button>
+        <button><i class="fas fa-share-alt"></i> Compartilhar</button>
+    </div>
+    <p class="descricao-local">Avajrfit Kals, hrufas isa sofcfar malandis soltiquê abartens dominet minondo juras qepuarque.</p>
+    <button onclick="fecharDetalhes()" style="background: #ffffff; margin-top: 10px; width: 100px; border-radius: 5px;">Sair</button>
+</div>
+
         </div>
     </div>
 
@@ -154,27 +227,63 @@
 
         const markers = [];
 
-        function atualizarLista() {
-            const container = document.getElementById('listaLocais');
-            const filtroTexto = document.getElementById('searchInput').value.toLowerCase();
-            const areaMinima = parseFloat(document.getElementById('areaMinima').value) || 0;
+        function fecharDetalhes() {
+    document.getElementById('detalhesLocal').style.display = 'none';
+}
+       function atualizarLista() {
+    const container = document.getElementById('listaLocais');
+    const filtroTexto = document.getElementById('searchInput').value.toLowerCase();
+    const areaMinima = parseFloat(document.getElementById('areaMinima').value) || 0;
+    const detalhes = document.getElementById('detalhesLocal');
 
-            container.innerHTML = '';
-            markers.forEach(m => map.removeLayer(m));
-            markers.length = 0;
+    container.innerHTML = '';
+    markers.forEach(m => map.removeLayer(m));
+    markers.length = 0;
 
-            locais.filter(l => (tipoSelecionado === 'todos' || l.tipo === tipoSelecionado) &&
-                l.nome.toLowerCase().includes(filtroTexto) && l.area >= areaMinima)
-                .forEach(local => {
-                    const div = document.createElement('div');
-                    div.className = 'location';
-                    div.innerHTML = `<strong>${local.nome}</strong><br>${local.endereco}<br>${local.area}m²`;
-                    container.appendChild(div);
+    locais.filter(l => (tipoSelecionado === 'todos' || l.tipo === tipoSelecionado) &&
+        l.nome.toLowerCase().includes(filtroTexto) && l.area >= areaMinima)
+        .forEach((local, index) => {
+            const div = document.createElement('div');
+            div.className = 'location';
+            div.innerHTML = `
+                <strong>${local.nome}, ${local.area}m²</strong><br>
+                <span>${local.endereco}</span><br>
+                <span><i class="fas fa-user"></i> Yuri Martins</span>
+                <div class="botao-fav-reputacao">
+                    <i class="fas fa-star" title="Reputação"></i>
+                    <i class="far fa-heart favorito" data-index="${index}" title="Favoritar"></i>
+                </div>
+            `;
+            div.addEventListener('click', (event) => {
+                const top = div.getBoundingClientRect().top + window.scrollY;
+                detalhes.style.top = `${top}px`;
+                detalhes.style.display = 'block';
+                document.querySelector('.descricao-local').textContent =
+                    `${local.nome}: ${local.endereco}. Área: ${local.area}m².`;
+                
+            });
+            document.querySelectorAll('.fa-star').forEach(estrela => {
+    estrela.addEventListener('click', (e) => {
+        e.stopPropagation();
+        estrela.classList.toggle('selecionada');
+    });
+});
 
-                    const marker = L.marker(local.coords).addTo(map).bindPopup(`<strong>${local.nome}</strong><br>${local.endereco}`);
-                    markers.push(marker);
-                });
-        }
+
+            container.appendChild(div);
+
+            const marker = L.marker(local.coords).addTo(map)
+                .bindPopup(`<strong>${local.nome}</strong><br>${local.endereco}`);
+            markers.push(marker);
+        });
+    document.querySelectorAll('.favorito').forEach(icone => {
+        icone.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            icone.classList.toggle('fas');
+            icone.classList.toggle('far');
+        });
+    });
+}
 
         function filtrar(tipo) {
             tipoSelecionado = tipo;
