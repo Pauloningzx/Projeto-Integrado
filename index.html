@@ -7,45 +7,108 @@
   <title>Login| Via Verde</title>
   <link rel="stylesheet" href="style.css">
 </head>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #75c89c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
+    .container {
+      background-color: white;
+      width: 80%;
+      max-width: 1000px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: flex;
+      overflow: hidden;
+    }
+
+    .left {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .left h1 {
+      font-size: 2.5em;
+      color: #000000;
+      margin-bottom: 20px;
+    }
+
+    .left p {
+      font-size: 1.1em;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .buttons a {
+      padding: 12px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn-login {
+      background-color: #45a065;
+      color: white;
+    }
+
+    .btn-login:hover {
+      background-color: #3d8d59;
+    }
+
+    .btn-cadastro {
+      background-color: #45a065;
+      color: #ffffff;
+    }
+
+    .btn-cadastro:hover {
+      background-color: #3d8d59;
+    }
+
+    .right {
+      flex: 1;
+      background: url('./img/fundo.png') center center/cover no-repeat;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .right {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
 <body>
   <div class="container">
-    <div class="login-section">
-      <img src="./icones/logo.png" alt="Logo Via Verde" class="logo">
-      <div class="login-box">
-        <h2>Login</h2>
-        <form>
-          <input type="email" placeholder="E-mail" required>
-          <input type="password" placeholder="Senha" required>
-          <label>
-            <input type="checkbox"> Lembrar de mim
-          </label>
-          <a href="./User/Home.html">
-            <button type="submit">Entrar</button>
-          </a>
-        </form>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-          <a href="./cadastro.html">Não tenho login</a>
-          <a href="#">Esqueci a senha</a>
-        </div>
-        <hr>
-        <div class="social-login">
-          <div class="social-button"><img src="./icones/facebook.png" width="20"> Entrar usando Facebook</div>
-          <div class="social-button"><img src="./icones/google.png" width="20"> Entrar usando Google</div>
-        </div>
+    <div class="left">
+      <h1>Bem-vindo ao Via Verde</h1>
+      <p>   Via Verde é um projeto que visa facilitar a conexão entre corporativas de 
+            reciclagem com cidadãos e entidades carentes que precisam se livrar de 
+            resíduos que poderiam ser utilizados por essas corporações, transformando 
+            esse processo demorado em uma experiência rápida e prática.</p>
+      <div class="buttons">
+        <a href="./login.html" class="btn-login">Login</a>
+        <a href="./cadastro.html" class="btn-cadastro">Cadastro</a>
       </div>
     </div>
-    <div class="right-section">
-      <div class="header-bar">
-        <h1 class="via-verde-title">Via Verde</h1>
-        <div class="social-icons">
-          <a href="https://x.com/"><img src="./icones/twitter.png" alt="twitter" /></a>
-          <a href="https://www.instagram.com/"><img src="./icones/instagram.png" alt="Instagram" /></a>
-          <a href="https://pt-br.facebook.com/"><img src="./icones/facebook.png" alt="facebook" /></a>
-        </div>
-      </div>
-    </div>
+    <div class="right"></div>
   </div>
 </body>
-
 </html>
