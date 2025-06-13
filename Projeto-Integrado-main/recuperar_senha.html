@@ -14,23 +14,16 @@
     <div class="login-section">
       <img src="./icones/logo.png" alt="Logo Via Verde" class="logo">
       <div class="login-box">
-        <h2>Login</h2>
-        <form id="login-form">
+        <h2>Recuperar Senha</h2>
+        <form id="atualizar-form">
           <input type="email" id="email" placeholder="E-mail" required>
-          <input type="password" id="senha" placeholder="Senha" required>
-          <label>
-            <input type="checkbox"> Lembrar de mim
-          </label>
-          <button type="submit">Entrar</button>
+          <input type="password" id="nova_senha" placeholder="Nova senha" required>
+          <input type="password" id="confir_nova_senha" placeholder="Confirmar nova senha" required>
+          <button type="submit">Alterar</button>
         </form>
         <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
           <a href="./cadastro.html">Não tenho login</a>
-          <a href="./recuperar_senha.html">Esqueci a senha</a>
-        </div>
-        <hr>
-        <div class="social-login">
-          <div class="social-button"><img src="./icones/facebook.png" width="20"> Entrar usando Facebook</div>
-          <div class="social-button"><img src="./icones/google.png" width="20"> Entrar usando Google</div>
+          <a href="./login.html">Fazer login</a>
         </div>
       </div>
     </div>
@@ -55,50 +48,31 @@
 
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-    const loginForm = document.getElementById('login-form');
+    const loginForm = document.getElementById('atualizar-form');
 
     loginForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       const email = document.getElementById('email').value.trim();
-      const senha = document.getElementById('senha').value;
+      const nova_senha = document.getElementById('senha').value;
+      const confir_nova_senha = document.getElementById('senha').value;
 
-      // Tenta fazer login
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password: senha
-      });
+      await updatePassword(email, nova_senha, confir_nova_senha);
+    
+      // Tenta alterar a senha
+      async function updatePassword(email, nova_senha, confir_nova_senha) {
+      if (nova_senha !== confir_nova_senha) {
+          console.error('As senhas não coincidem.');
+          return;
+      }
+
+      const { data, error } = await supabase.auth.updateUser({ email, senha: nova_senha });
 
       if (error) {
-        alert('Erro ao fazer login: ' + error.message);
-        return;
+          console.error('Erro ao atualizar senha:', error.message);
+      } else {
+          console.log('Senha alterada com sucesso!');
       }
-
-      // Login OK, buscar tipo de usuário
-      const { data: perfil, error: perfilErro } = await supabaseClient
-        .from('usuarios')
-        .select('tipo_usuario')
-        .eq('email', email)
-        .single();
-
-      if (perfilErro || !perfil) {
-        alert('Erro ao buscar tipo de usuário: ' + (perfilErro?.message || 'Tipo não encontrado.'));
-        return;
-      }
-
-      // Redirecionar com base no tipo de usuário
-      switch (perfil.tipo_usuario) {
-        case 'usuario':
-          window.location.href = './User/Home.html';
-          break;
-        case 'cooperativa':
-          window.location.href = './Cooperativa/Home.html';
-          break;
-        case 'instituicao':
-          window.location.href = './Instituicao/Home.html';
-          break;
-        default:
-          alert('Tipo de usuário desconhecido.');
       }
     });
   });
