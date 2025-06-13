@@ -1,2 +1,0 @@
-# Projeto-Integrado
-projeto interdisciplinar
