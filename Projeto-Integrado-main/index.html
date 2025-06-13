@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login| Via Verde</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #75c89c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      width: 80%;
+      max-width: 1000px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: flex;
+      overflow: hidden;
+    }
+
+    .left {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .left h1 {
+      font-size: 2.5em;
+      color: #000000;
+      margin-bottom: 20px;
+    }
+
+    .left p {
+      font-size: 1.1em;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .buttons a {
+      padding: 12px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn-login {
+      background-color: #45a065;
+      color: white;
+    }
+
+    .btn-login:hover {
+      background-color: #3d8d59;
+    }
+
+    .btn-cadastro {
+      background-color: #45a065;
+      color: #ffffff;
+    }
+
+    .btn-cadastro:hover {
+      background-color: #3d8d59;
+    }
+
+    .right {
+      flex: 1;
+      background: url('./img/fundo.png') center center/cover no-repeat;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .right {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <h1>Bem-vindo ao Via Verde</h1>
+      <p>   Via Verde é um projeto que visa facilitar a conexão entre corporativas de 
+            reciclagem com cidadãos e entidades carentes que precisam se livrar de 
+            resíduos que poderiam ser utilizados por essas corporações, transformando 
+            esse processo demorado em uma experiência rápida e prática.</p>
+      <div class="buttons">
+        <a href="./login.html" class="btn-login">Login</a>
+        <a href="./cadastro.html" class="btn-cadastro">Cadastro</a>
+      </div>
+    </div>
+    <div class="right"></div>
+  </div>
+</body>
+</html>

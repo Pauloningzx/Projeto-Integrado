@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar reciclável - ViaVerde</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<style>
+
+    .dados-usuario {
+      background-color: #c7e5d8;
+      padding: 25px;
+      margin-right: 20px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+      margin-bottom: 250px;
+    }
+
+    .dados-usuario h2 {
+      margin-bottom: 20px;
+      font-size: 1.5em;
+      color: #000000;
+    }
+
+    .dados-usuario label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #004d40;
+    }
+
+    .dados-usuario input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+      font-size: 0.95em;
+    }
+
+    .dados-usuario button {
+      background-color: #00695c;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dados-usuario button:hover {
+      background-color: #004d40;
+    }
+
+    .anexo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 10px;
+    }
+
+    .custom-file-upload {
+      background-color: yellow;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .anexo-info {
+      font-size: 0.8em;
+      color: #333;
+      margin-top: 5px;
+    }
+
+    .anexo-sucesso {
+      color: green;
+      font-weight: bold;
+      font-size: 0.85em;
+      margin-top: 5px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+
+  <div class="sidebar">
+    <div class="menu-toggle" onclick="toggleSidebar()">
+      <img src="../icones/menu.png" width="30px" style="padding-right: 5px" alt="menu" />
+    </div>
+    <ul class="menu">
+            <a href="./Home.html">
+                <li><img src="../icones/casa.png" alt="Home"><span>Home</span></li>
+            </a>
+            <hr>
+            <a href="./Procurar Deposito.html">
+                <li><img src="../icones/mais-zoom.png" alt="Mapa"><span>Procurar pontos de depósito</span></li>
+            </a>
+            <hr>
+            <a href="./Cadastrar meu Residuo.html">
+                <li><img src="../icones/mais (1).png" alt="Adicionar meu reciclavel"><span>Adicionar meu
+                        reciclavel</span></li>
+            </a>
+            <hr>
+            <a href="./voluntário.html">
+                <li><img src="../icones/pin-de-localizacao.png" alt="Voluntàrio"><span>Voluntàrio</span></li>
+            </a>
+            <hr>
+            <a href="./favoritos.html">
+                <li><img src="../icones/favoritos.png" alt="Ver favoritos"><span>Ver favoritos</span></li>
+            </a>
+            <hr>
+        </ul>
+    <ul class="sidebar-footer">
+      <hr />
+      <a href="configuracao.html">
+        <li>
+          <img src="../icones/definicoes.png" alt="Configurações" /><span>Configurações</span>
+        </li>
+      </a>
+      <hr />
+      <a href="">
+        <li><img src="../icones/sair.png" alt="Sair" /><span>Sair</span></li>
+      </a>
+      <hr />
+    </ul>
+  </div>
+
+  <main class="content">
+    <header>
+      <h1>Cadastrar Reciclável</h1>
+      <img src="../icones/logo.png" alt="Logo-Via-Verde" />
+    </header>
+
+    <div class="cadastro-container" style="display: flex; flex-wrap: wrap; justify-content: space-between; padding: 20px">
+      <div class="dados-usuario">
+        <h2>Dados Usuário</h2>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="Digite o Nome" /><br />
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" placeholder="(DD) xxxxx-xxxx" /><br />
+        <button>Cadastrar</button>
+      </div>
+
+            <div class="dados-coleta" style="flex: 2; background-color: #d1ede3; padding: 20px; border-radius: 10px;">
+                <h3>Disponível para coleta</h3> <br>
+                <label for="data">Data:</label>
+                <input type="date" id="data">
+                <label for="hora-inicio">Horário:</label>
+                <input type="time" id="hora-inicio">
+                <label for="hora-fim">até</label>
+                <input type="time" id="hora-fim">
+
+                <h3 style="margin-top: 20px;">Tipo de Reciclável</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <label><input type="checkbox" onchange="toggleInput(this)"> Vidro <input type="text" placeholder="Kg" disabled style="width: 50px;"></label>
+            <label><input type="checkbox" onchange="toggleInput(this)"> Alumínio <input type="text" placeholder="Kg" disabled style="width: 50px;"></label>
+            <label><input type="checkbox" onchange="toggleInput(this)"> Papel <input type="text" placeholder="Kg" disabled style="width: 50px;"></label>
+            <label><input type="checkbox" onchange="toggleInput(this)"> Metal <input type="text" placeholder="Kg" disabled style="width: 50px;"></label>
+            <label><input type="checkbox" onchange="toggleInput(this)"> Plástico <input type="text" placeholder="Kg" disabled style="width: 50px;"></label>
+            <label><input type="checkbox" onchange="toggleInput(this)"> Borracha <input type="text" placeholder="Kg" disabled style="width: 50px;"></label>
+            <label style="margin-left: auto;">
+
+            <div style="margin-left: auto; text-align: right;">
+                <label for="imagem" style="background-color: #fdd835; padding: 10px 16px; font-weight: bold; cursor: pointer; display: inline-block;">
+                Anexar Imagem
+                </label>
+                <input type="file" id="imagem" accept="image/*" style="display: none;" onchange="validarImagem(this)">
+            <div style="font-size: 12px; color: #333; margin-top: 4px;">*Tamanho máximo: 30MB</div>
+    <div id="nome-arquivo" style="font-size: 13px; color: green; margin-top: 4px; display: none;"></div>
+</div>
+</div>
+                <h3 style="margin-top: 20px;">Endereço</h3><br>
+                <input type="text" placeholder="Rua" style="width: 100%; margin-bottom: 5px;">
+                <div style="display: flex; gap: 2%;">
+                    <input type="text" placeholder="Bairro" style="width: 49%;">
+                    <input type="text" placeholder="Nº" style="width: 49%;">
+                </div>
+                <div style="display: flex; gap: 2%; margin-top: 5px;">
+                    <input type="text" placeholder="CEP" style="width: 32%;">
+                    <input type="text" placeholder="Estado" style="width: 32%;">
+                    <input type="text" placeholder="Cidade" style="width: 32%;">
+                </div>
+                <input type="text" placeholder="Telefone" style="width: 100%; margin-top: 5px;">
+
+                <h3 style="margin-top: 20px;">Descrição</h3> <br>
+                <textarea style="width: 100%; height: 100px;"></textarea>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.overlay');
+            sidebar.classList.toggle('expanded');
+            overlay.classList.toggle('active');
+        }
+
+        function toggleInput(checkbox) {
+            const input = checkbox.parentElement.querySelector('input[type="text"]');
+            input.disabled = !checkbox.checked;
+        }
+    function validarImagem(input) {
+    const file = input.files[0];
+    const aviso = document.getElementById('nome-arquivo');
+
+    if (file && file.size > 30 * 1024 * 1024) {
+        alert("A imagem selecionada ultrapassa o limite de 30MB.");
+        input.value = "";
+        aviso.style.display = 'none';
+    } else if (file) {
+        aviso.textContent = `Imagem anexada: ${file.name}`;
+        aviso.style.display = 'block';
+    }
+}
+    </script>
+</body>
+
+</html>

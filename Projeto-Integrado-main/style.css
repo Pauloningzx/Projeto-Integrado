@@ -1,0 +1,181 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: #64C097;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.login-section {
+  width: 45%;
+  background-color: #64C097;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: min-content;
+}
+
+.login-box {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  border-style: solid;
+  border-color: #7c7c7c;
+  border-width: 0px;
+  border-inline-end-width: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #000000;
+  font-family: mukta muhee;
+}
+
+.login-box input[type="email"],
+.login-box input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.login-box label {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.login-box input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.login-box button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 6px;
+  margin: 15px 0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-box a {
+  text-decoration: none;
+  color: #2e7d32;
+  font-size: 0.85rem;
+}
+
+.login-box .social-login {
+  margin-top: 20px;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #f1f1f1;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.logo {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.right-section {
+  width: 55%;
+  position: relative;
+  background: url("./img/fundo.png") no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.header-bar {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 20px;
+  height: 100px;
+}
+
+.via-verde-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000000;
+  margin: 0;
+  font-family: Piedra;
+}
+
+
+.social-icons {
+  margin-left: auto;
+}
+
+.social-icons img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0.2);
+  transition: transform 0.2s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+  filter: brightness(0);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    background-color: #64C097;
+  }
+
+  .login-section,
+  .right-section {
+    width: 100%;
+    height: auto;
+  }
+
+  .right-section {
+    min-height: 300px;
+  }
+
+  .right-section {
+    display: none;
+  }
+}

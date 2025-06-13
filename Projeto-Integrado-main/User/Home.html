@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Coleta Seletiva</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar">
+        <div class="menu-toggle" onclick="toggleSidebar()">
+            <img src="../icones/menu.png" width="30px" style="padding-right: 5px;" wialt="menu">
+        </div>
+        <ul class="menu">
+            <a href="./Home.html">
+                <li><img src="../icones/casa.png" alt="Home"><span>Home</span></li>
+            </a>
+            <hr>
+            <a href="./Procurar Deposito.html">
+                <li><img src="../icones/mais-zoom.png" alt="Mapa"><span>Procurar pontos de depósito</span></li>
+            </a>
+            <hr>
+            <a href="./Cadastrar meu Residuo.html">
+                <li><img src="../icones/mais (1).png" alt="Adicionar meu reciclavel"><span>Adicionar meu
+                        reciclavel</span></li>
+            </a>
+            <hr>
+            <a href="./voluntário.html">
+                <li><img src="../icones/pin-de-localizacao.png" alt="Voluntàrio"><span>Voluntàrio</span></li>
+            </a>
+            <hr>
+            <a href="./favoritos.html">
+                <li><img src="../icones/favoritos.png" alt="Ver favoritos"><span>Ver favoritos</span></li>
+            </a>
+            <hr>
+        </ul>
+        <ul class="sidebar-footer">
+            <hr>
+            <a href="configuracao.html">
+                <li><img src="../icones/definicoes.png" alt="Configurações"><span>Configurações</span></li>
+            </a>
+            <hr>
+            <a href="">
+                <li><img src="../icones/sair.png" alt="Sair"><span>Sair</span></li>
+            </a>
+            <hr>
+        </ul>
+    </div>
+
+    <main class="content">
+        <header>
+            <h1>Home</h1>
+            <img src="../icones/logo.png" alt="Logo-Via-Verde">
+        </header>
+        <div class="columns">
+            <div class="column">
+                <div class="comment-box">
+                    <div class="user-header">
+                        <img src="../img/31ec2ce212492e600b8de27f38846ed7.jpg" alt="user">
+                        <span>Marcos Garcia</span>
+                        <span class="status online"></span>
+                    </div>
+                    <textarea placeholder="Faça um Comentário"></textarea>
+                    <div class="comment-actions">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="user-header">
+                        <img src="../img/31ec2ce212492e600b8de27f38846ed7.jpg" alt="user">
+                        <span class="user-name">Fábio Marcelo dos Santos</span>
+                        <span class="status online"></span>
+                    </div>
+                    <h2>PL prevê medidas compensatórias para coleta seletiva</h2>
+                    <br>
+                    <p>O deputado Sergio Meneguelli (Republicanos) apresentou o Projeto de Lei (PL) 566/2024 que
+                        institui a Semana de Conscientização sobre a Reciclagem e Valorização do Meio Ambiente nas
+                        Escolas Públicas do Espírito Santo. A atividade deverá ser realizada no início de junho para
+                        coincidir com o Dia Mundial do Meio Ambiente, celebrado no dia 5.  Ele afirma que o objetivo é
+                        promover educação ambiental, especialmente em um momento no qual as questões ecológicas se
+                        tornam cada vez mais urgentes em todo o mundo.   Diz ainda Meneguelli que o Espírito Santo,
+                        conhecido por sua rica biodiversidade e belíssimas paisagens naturais, enfrenta desafios
+                        significativos relacionados à poluição, desmatamento e gestão inadequada de resíduos.   “É
+                        fundamental que as futuras gerações sejam conscientizadas sobre a importância da preservação
+                        ambiental e da reciclagem desde cedo, formando cidadãos responsáveis e engajados na proteção do
+                        nosso meio ambiente”.</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="note-box">
+                    <div class="user-header">
+                        <img style="width: 50px;border-radius: 100%;" src="../img/1695044633941.jfif" alt="user">
+                        <span class="user-name">Fortes</span>
+                        <span class="status online"></span>
+                    </div>
+                    <h3>Nota 07/06/2025</h3>
+                    <br>
+                    <p>O deputado Sergio Meneguelli (Republicanos) apresentou o Projeto de Lei (PL) 566/2024 que
+                        institui a Semana de Conscientização sobre a Reciclagem e Valorização do Meio Ambiente nas
+                        Escolas Públicas do Espírito Santo. A atividade deverá ser realizada no início de junho para
+                        coincidir com o Dia Mundial do Meio Ambiente, celebrado no dia 5.  Ele afirma que o objetivo é
+                        promover educação ambiental, especialmente em um momento no qual as questões ecológicas se
+                        tornam cada vez mais urgentes em todo o mundo.   Diz ainda Meneguelli que o Espírito Santo,
+                        conhecido por sua rica biodiversidade e belíssimas paisagens naturais, enfrenta desafios
+                        significativos relacionados à poluição, desmatamento e gestão inadequada de resíduos.   “É
+                        fundamental que as futuras gerações sejam conscientizadas sobre a importância da preservação
+                        ambiental e da reciclagem desde cedo, formando cidadãos responsáveis e engajados na proteção do
+                        nosso meio ambiente”.</p>
+                    <img src="../img/906341-lixo_carnaval _rio de janeiro-9965.webp" alt="lixo reciclável">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.overlay');
+
+            sidebar.classList.toggle('expanded');
+            overlay.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
