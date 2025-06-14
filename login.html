@@ -74,33 +74,39 @@
       }
 
       // Login OK, buscar tipo de usuário
-      const { data: perfil, error: perfilErro } = await supabaseClient
-        .from('usuarios')
-        .select('tipo_usuario')
-        .eq('email', email)
-        .single();
+     const { data: perfil, error: perfilErro } = await supabaseClient
+  .from('usuarios')
+  .select('tipo_usuario, admin')
+  .eq('email', email)
+  .single();
 
-      if (perfilErro || !perfil) {
-        alert('Erro ao buscar tipo de usuário: ' + (perfilErro?.message || 'Tipo não encontrado.'));
-        return;
-      }
+if (perfilErro || !perfil) {
+  alert('Erro ao buscar tipo de usuário: ' + (perfilErro?.message || 'Tipo não encontrado.'));
+  return;
+}
 
-      // Redirecionar com base no tipo de usuário (brabissimo tierry)
-      switch (perfil.tipo_usuario) {
-        case 'usuario':
-          window.location.href = './User/Home.html';
-          break;
-        case 'cooperativa':
-          window.location.href = './Cooperativa/Home.html';
-          break;
-        case 'instituicao':
-          window.location.href = './Entidade_Carente/Home.html';
-          break;
-        default:
-          alert('Tipo de usuário desconhecido.');
-      }
-    });
-  });
+if (perfil.admin) {
+  window.location.href = './ADM/home.html';
+  return;
+}
+
+switch (perfil.tipo_usuario) {
+  case 'usuario':
+    window.location.href = './User/Home.html';
+    break;
+  case 'cooperativa':
+    window.location.href = './Cooperativa/home.html';
+    break;
+  case 'instituicao':
+    window.location.href = './Entidade_Carente/home.html';
+    break;
+  default:
+    alert('Tipo de usuário desconhecido.');
+   }
+ });
+});
+
+
 </script>
 
 

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Editar Usuários</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      padding: 6px;
+      border-radius: 3px;
+    }
+    button.save-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    button.save-btn:hover {
+      background-color: #45a049;
+    }
+    #loading {
+      font-size: 16px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Editar Usuários do Banco</h1>
+  <div id="loading">Carregando registros...</div>
+  <table id="users-table" style="display:none;">
+    <thead>
+      <tr id="table-header"></tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://lvqnxtjxczxsyhbjpiwb.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2cW54dGp4Y3p4c3loYmpwaXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODM3NTUsImV4cCI6MjA2NTI1OTc1NX0.FAGd8OsDZB_baU4z-FDfxixEKC_EksK88JJM7LoyidQ';
+
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function fetchUsuarios() {
+      const loadingElem = document.getElementById('loading');
+      const table = document.getElementById('users-table');
+      const tbody = document.getElementById('table-body');
+      const theadRow = document.getElementById('table-header');
+
+      try {
+        const { data, error } = await supabaseClient.from('usuarios').select('*');
+
+        if (error) {
+          loadingElem.textContent = 'Erro ao carregar dados: ' + error.message;
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          loadingElem.textContent = 'Nenhum registro encontrado.';
+          return;
+        }
+
+        // Limpa tabela
+        theadRow.innerHTML = '';
+        tbody.innerHTML = '';
+
+        // Colunas baseado no primeiro registro
+        const keys = Object.keys(data[0]);
+
+        // Cabeçalho
+        keys.forEach(key => {
+          const th = document.createElement('th');
+          th.textContent = key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+          theadRow.appendChild(th);
+        });
+        // Coluna extra para botão salvar
+        const th = document.createElement('th');
+        th.textContent = 'Ações';
+        theadRow.appendChild(th);
+
+        // Preenche linhas
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+
+          keys.forEach(key => {
+            const td = document.createElement('td');
+
+            if (key === 'id') {
+              // só mostra texto no id, não editável
+              td.textContent = row[key];
+            } else {
+              // cria input para editar
+              const input = document.createElement('input');
+
+              // Define tipo básico: e-mail, senha ou texto
+              if (key.toLowerCase().includes('email')) input.type = 'email';
+              else if (key.toLowerCase().includes('senha') || key.toLowerCase().includes('password')) input.type = 'password';
+              else input.type = 'text';
+
+              input.value = row[key] === null ? '' : row[key];
+              input.dataset.field = key; // guarda nome do campo para salvar
+              td.appendChild(input);
+            }
+
+            tr.appendChild(td);
+          });
+
+          // Coluna para botão salvar
+          const tdSave = document.createElement('td');
+          const btnSave = document.createElement('button');
+          btnSave.textContent = 'Salvar';
+          btnSave.classList.add('save-btn');
+          btnSave.onclick = async () => {
+            btnSave.disabled = true;
+            btnSave.textContent = 'Salvando...';
+
+            // Cria objeto com campos para atualizar
+            const inputs = tr.querySelectorAll('input');
+            let updateData = {};
+
+            inputs.forEach(input => {
+              updateData[input.dataset.field] = input.value;
+            });
+
+            // Atualiza registro via Supabase
+            const { error } = await supabaseClient
+              .from('usuarios')
+              .update(updateData)
+              .eq('id', row.id);
+
+            if (error) {
+              alert('Erro ao salvar: ' + error.message);
+              btnSave.disabled = false;
+              btnSave.textContent = 'Salvar';
+              return;
+            }
+
+            alert('Registro salvo com sucesso!');
+            btnSave.disabled = false;
+            btnSave.textContent = 'Salvar';
+          };
+          tdSave.appendChild(btnSave);
+          tr.appendChild(tdSave);
+
+          tbody.appendChild(tr);
+        });
+
+        loadingElem.style.display = 'none';
+        table.style.display = 'table';
+
+      } catch (err) {
+        loadingElem.textContent = 'Erro inesperado: ' + err.message;
+      }
+    }
+
+    fetchUsuarios();
+  </script>
+</body>
+</html>
