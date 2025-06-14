@@ -120,59 +120,86 @@
       <h1>Adicionar Nota</h1>
       <img src="../icones/logo.png" alt="Logo-Via-Verde">
     </header>
-
-    <div class="form-container">
-      <div class="minhas-notas">
-        <h3>Ver Minhas Notas</h3>
-        <small>xx/xx/xxxx</small>
-        <h4>Compromisso com o Meio Ambiente</h4>
-        <p>
+<div class="form-container">
+  <div class="minhas-notas">
+    <h3>Ver Minhas Notas</h3>
+    <small id="data-nota"></small>
+    <h4 id="titulo-nota">Sua Nota</h4>
+    <p id="conteudo-nota">
             A Cooperativa ReciclaMais informa que esteve presente no evento "Sustentabilidade em Ação", realizado no último sábado. Durante o evento, foram coletados mais de 500 kg de materiais recicláveis, como papel, plástico, vidro e metal, que agora serão devidamente separados e destinados para a reciclagem.
             Agradecemos a todos que participaram e reforçamos a importância da destinação correta dos resíduos. Cada atitude faz a diferença na preservação do meio ambiente e no fortalecimento do trabalho dos catadores e catadoras da nossa cooperativa.
             Juntos, construímos um futuro mais sustentável!
-        </p>
-        <img src="../img/recicla3453.png" alt="Imagem da Nota">
-      </div>
+    </p>
+    <img id="preview-imagem" src="../img/recicla3453.png" alt="Imagem da Nota">
+  </div>
 
-      <div class="nova-nota">
-        <h3>Nota</h3>
-        <form>
-          <textarea placeholder="Escreva uma Nota"></textarea><br>
-          <div style="margin-left: auto; text-align: right;">
-                <label for="imagem" style="background-color: #fdd835; padding: 10px 16px; font-weight: bold; cursor: pointer; display: inline-block;">
-                Anexar Imagem
-                </label>
-                <input type="file" id="imagem" accept="image/*" style="display: none;" onchange="validarImagem(this)">
-            <div style="font-size: 12px; color: #333; margin-top: 4px;">*Tamanho máximo: 30MB</div>
-    <div id="nome-arquivo" style="font-size: 13px; color: green; margin-top: 4px; display: none;"></div>
-          <button type="submit">Enviar</button>
-        </form>
+  <div class="nova-nota">
+    <h3>Nota</h3>
+    <form id="form-nota">
+      <textarea id="textarea-nota" placeholder="Escreva uma Nota"></textarea><br>
+      <div style="margin-left: auto; text-align: right;">
+        <label for="imagem" style="background-color: #fdd835; padding: 10px 16px; font-weight: bold; cursor: pointer; display: inline-block;">
+          Anexar Imagem
+        </label>
+        <input type="file" id="imagem" accept="image/*" style="display: none;" onchange="validarImagem(this)">
+        <div style="font-size: 12px; color: #333; margin-top: 4px;">*Tamanho máximo: 30MB</div>
+        <div id="nome-arquivo" style="font-size: 13px; color: green; margin-top: 4px; display: none;"></div>
+        <button type="submit">Enviar</button>
       </div>
-    </div>
+    </form>
+  </div>
+</div>
   </main>
 
   <script>
-    function toggleSidebar() {
-      const sidebar = document.querySelector('.sidebar');
-      const overlay = document.querySelector('.overlay');
+  function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    sidebar.classList.toggle('expanded');
+    overlay.classList.toggle('active');
+  }
 
-      sidebar.classList.toggle('expanded');
-      overlay.classList.toggle('active');
-    }
-    function validarImagem(input) {
+  function validarImagem(input) {
     const file = input.files[0];
     const aviso = document.getElementById('nome-arquivo');
+    const preview = document.getElementById('preview-imagem');
 
     if (file && file.size > 30 * 1024 * 1024) {
-        alert("A imagem selecionada ultrapassa o limite de 30MB.");
-        input.value = "";
-        aviso.style.display = 'none';
+      alert("A imagem selecionada ultrapassa o limite de 30MB.");
+      input.value = "";
+      aviso.style.display = 'none';
     } else if (file) {
-        aviso.textContent = `Imagem anexada: ${file.name}`;
-        aviso.style.display = 'block';
+      aviso.textContent = `Imagem anexada: ${file.name}`;
+      aviso.style.display = 'block';
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
-}
-  </script>
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const dataSpan = document.getElementById('data-nota');
+    const hoje = new Date();
+    const dataFormatada = hoje.toLocaleDateString('pt-BR');
+    dataSpan.textContent = dataFormatada;
+
+    const textarea = document.getElementById('textarea-nota');
+    const pNota = document.getElementById('conteudo-nota');
+
+    textarea.addEventListener('input', () => {
+      pNota.textContent = textarea.value || "Digite sua nota acima...";
+    });
+
+    document.getElementById('form-nota').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Nota salva (simulada).');
+    });
+  });
+</script>
+
 </body>
 
 </html>
