@@ -184,7 +184,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const supabaseUrl = 'https://lvqnxtjxczxsyhbjpiwb.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2cW54dGp4Y3p4c3loYmpwaXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODM3NTUsImV4cCI6MjA2NTI1OTc1NX0.FAGd8OsDZB_baU4z-FDfxixEKC_EksK88JJM7LoyidQ'; // 🔒 Use a chave pública (anon)
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2cW54dGp4Y3p4c3loYmpwaXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODM3NTUsImV4cCI6MjA2NTI1OTc1NX0.FAGd8OsDZB_baU4z-FDfxixEKC_EksK88JJM7LoyidQ'; //(anon)
 
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
@@ -207,7 +207,7 @@
       const estado = document.getElementById('estado').value.trim();
       const cidade = document.getElementById('cidade').value.trim();
 
-      // 1) Criar conta no Supabase Auth
+      // cria conta
       const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({
         email,
         password: senha,
@@ -224,7 +224,7 @@
         return;
       }
 
-      // 2) Inserir dados na tabela usuarios
+      // insert dados
       const { data: usuarioData, error: insertUserError } = await supabaseClient
         .from('usuarios')
         .insert([{
@@ -245,7 +245,7 @@
 
       const usuarioId = usuarioData.id;
 
-      // 3) Inserir endereço
+      // insert endereço
       const { error: enderecoError } = await supabaseClient
         .from('enderecos')
         .insert([{
