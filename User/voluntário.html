@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voluntário - Via Verde</title>
+    <title>Voluntàrio - ViaVerde</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="shortcut icon" href="../icones/favicon.png" type="image/x-icon">
 <style>
     .container {
         display: flex;
@@ -22,6 +21,11 @@
         padding: 30px;
         width: 40%;
         box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+    }
+
+    .form-section h1 {
+        text-align: center;
+        margin-bottom: 20px;
     }
 
     .form-section h2 {
@@ -75,11 +79,20 @@
     }
 
     .description-section {
+        width: 30%;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .description-text{
         background-color: #b6e1cc;
         border-radius: 10px;
         padding: 10px;
         height: 400px;
-        width: 40%;
+        width: 100%;
         box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
         display: flex;
         flex-direction: column;
@@ -94,6 +107,33 @@
         border-radius: 6px;
         font-size: 14px;
     }
+
+    .procura {
+        background-color: #b6e1cc;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10%;
+        height: 200px;
+        width: 70%;
+        box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .procurar button {
+        display: block;
+        margin: 20px auto 0;
+        background-color: #006b52;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 200px;
+    }
+
 </style>
 
     </style>
@@ -135,7 +175,7 @@
                 <li><img src="../icones/definicoes.png" alt="Configurações"><span>Configurações</span></li>
             </a>
             <hr>
-            <a href="">
+            <a href="../index.html">
                 <li><img src="../icones/sair.png" alt="Sair"><span>Sair</span></li>
             </a>
             <hr>
@@ -157,37 +197,12 @@
             <input type="text" placeholder="Cep">
             <input type="text" placeholder="Endereço">
             <input type="text" placeholder="Nº">
-            <input type="text" placeholder="Cidade">
+            <input type="text" placeholder="Bairro">
             <input type="text" placeholder="Bairro">
             <select>
                 <option value="">Estado</option>
-                <option value="AC">AC</option>
-                <option value="AL">AL</option>
-                <option value="AP">AP</option>
-                <option value="AM">AM</option>
-                <option value="BA">BA</option>
-                <option value="CE">CE</option>
-                <option value="DF">DF</option>
-                <option value="ES">ES</option>
-                <option value="GO">GO</option>
-                <option value="MA">MA</option>
-                <option value="MT">MT</option>
-                <option value="MS">MS</option>
-                <option value="MG">MG</option>
-                <option value="PA">PA</option>
-                <option value="PB">PB</option>
-                <option value="PR">PR</option>
-                <option value="PE">PE</option>
-                <option value="PI">PI</option>
-                <option value="RJ">RJ</option>
-                <option value="RN">RS</option>
-                <option value="RO">RO</option>
-                <option value="RS">RS</option>
-                <option value="RR">RR</option>
-                <option value="SC">SC</option>
                 <option value="SP">SP</option>
-                <option value="SE">SE</option>
-                <option value="TO">TO</option>
+                <option value="RJ">RJ</option>
             </select>
 
             <div class="upload-wrapper">
@@ -200,9 +215,17 @@
         </div>
 
         <div class="description-section">
-            <textarea placeholder="Adicione informações extras"></textarea>
+            <div class="description-text">
+                <textarea placeholder="Adicione informações extras"></textarea>
+            </div>
+            <div class="procura">
+            <h1>Procurar Reciclaveis no mapa</h1>
+            <button><a href="./Procurar Reciclavel.html">Procurar Reciclaveis</a></button>
+            </div>
         </div>
-    </div>
+        
+        
+    
 
     <script>
         function toggleSidebar() {
