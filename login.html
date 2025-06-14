@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login | Via Verde</title>
+  <title>Login - Via Verde</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Carrega Supabase ANTES de qualquer uso -->
+  <link rel="shortcut icon" href="./icones/favicon.png" type="image/x-icon">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -28,10 +27,10 @@
           <a href="./recuperar_senha.html">Esqueci a senha</a>
         </div>
         <hr>
-        <div class="social-login">
+        <!--<div class="social-login"> 
           <div class="social-button"><img src="./icones/facebook.png" width="20"> Entrar usando Facebook</div>
           <div class="social-button"><img src="./icones/google.png" width="20"> Entrar usando Google</div>
-        </div>
+        </div> A gente so tirou essa parte da pagina principal, por questões de funcionalidade-->
       </div>
     </div>
 
@@ -86,7 +85,7 @@
         return;
       }
 
-      // Redirecionar com base no tipo de usuário
+      // Redirecionar com base no tipo de usuário (brabissimo tierry)
       switch (perfil.tipo_usuario) {
         case 'usuario':
           window.location.href = './User/Home.html';
